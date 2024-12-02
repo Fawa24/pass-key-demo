@@ -1,7 +1,19 @@
-﻿<div style="display: flex; height: 100vh; align-items: center; justify-content: center">
+﻿@{
+	var isSignedIn = User.Identity?.IsAuthenticated == null ? false : User.Identity.IsAuthenticated;
+}
+
+<div style="display: flex; height: 100vh; align-items: center; justify-content: center">
 	<div style="display: flex; flex-direction: column; height: 100px; width: 300px; align-items: center; justify-content: space-between">
-		<h1 style="font-size: 40px;">Choose action</h1>
+		@if (!isSignedIn)
+		{
+			<h1 style="font-size: 40px;">Choose action</h1>
+		}
+		else
+		{
+			<h1 style="font-size: 40px;">Hello, @User.Identity?.Name</h1>
+		}
 		<a style="font-size: 25px;" href="register/">Register new account</a>
 		<a style="font-size: 25px;" href="login/">Login to an existing account</a>
+		<a style="font-size: 25px;" href="logout/">Log out</a>
 	</div>
 </div>

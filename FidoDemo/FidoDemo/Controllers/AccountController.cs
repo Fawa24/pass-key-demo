@@ -8,10 +8,13 @@ namespace FidoDemo.Controllers
 	public class AccountController : Controller
 	{
 		private readonly UserManager<BaseUser> _userManager;
+		private readonly SignInManager<BaseUser> _signInManager;
 
-		public AccountController(UserManager<BaseUser> userManager)
+		public AccountController(UserManager<BaseUser> userManager
+			, SignInManager<BaseUser> signInManager)
 		{
 			_userManager = userManager;
+			_signInManager = signInManager;
 		}
 
 		[HttpGet("/")]
@@ -47,7 +50,8 @@ namespace FidoDemo.Controllers
 
 			if (result.Succeeded)
 			{
-				return RedirectToAction(nameof(RegisterGet));
+				await _signInManager.SignInAsync(user, isPersistent: true);
+				return RedirectToAction(nameof(Index));
 			}
 			else
 			{
@@ -56,6 +60,20 @@ namespace FidoDemo.Controllers
 					ModelState.AddModelError("Register", error.Description);
 				}
 			}
+
+			return RedirectToAction(nameof(Index));
+		}
+
+		[HttpGet("login/")]
+		public IActionResult LoginGet()
+		{
+			return View();
+		}
+
+		[HttpGet("logout/")]
+		public async Task<IActionResult> LogOut()
+		{
+			await _signInManager.SignOutAsync();
 
 			return RedirectToAction(nameof(Index));
 		}

@@ -26,6 +26,7 @@ namespace FidoDemo
 
 			var app = builder.Build();
 
+			app.UseAuthentication();
 			app.UseRouting();
 			app.MapControllers();
 
