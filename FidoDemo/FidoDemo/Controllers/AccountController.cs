@@ -15,13 +15,19 @@ namespace FidoDemo.Controllers
 		}
 
 		[HttpGet("/")]
-		public IActionResult Index(RegisterDTO registerDTO)
+		public IActionResult Index()
 		{
 			return View();
 		}
 
-		[HttpPost("/")]
-		public async Task<IActionResult> Register(RegisterDTO registerDTO)
+		[HttpGet("register/")]
+		public IActionResult RegisterGet(RegisterDTO registerDTO)
+		{
+			return View();
+		}
+
+		[HttpPost("register/")]
+		public async Task<IActionResult> RegisterPost(RegisterDTO registerDTO)
 		{
 			if (!ModelState.IsValid)
 			{
@@ -41,7 +47,7 @@ namespace FidoDemo.Controllers
 
 			if (result.Succeeded)
 			{
-				return RedirectToAction(nameof(Register));
+				return RedirectToAction(nameof(RegisterGet));
 			}
 			else
 			{
@@ -51,7 +57,7 @@ namespace FidoDemo.Controllers
 				}
 			}
 
-			return RedirectToAction(nameof(Register));
+			return RedirectToAction(nameof(Index));
 		}
 	}
 }
