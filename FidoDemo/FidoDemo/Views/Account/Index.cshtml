@@ -1,0 +1,79 @@
+﻿@using FidoDemo.Models.DTO
+@model RegisterDTO
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .error {
+            color: red;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <h1>Register</h1>
+    <form asp-action="Register" asp-controller="Account" method="post">
+        <div class="form-group">
+            <label for="UserName">User Name:</label>
+            <input asp-for="UserName" id="UserName" name="UserName" type="text" required />
+        </div>
+        <div class="form-group">
+            <label for="DisplayName">Display Name:</label>
+            <input asp-for="DisplayName" id="DisplayName" name="DisplayName" type="text" required />
+        </div>
+        <div class="form-group">
+            <label for="Password">Password:</label>
+            <input asp-for="Password" id="Password" name="Password" type="password" required minlength="6" />
+        </div>
+        <div class="form-group">
+            <label for="ConfirmPassword">Confirm Password:</label>
+            <input asp-for="ConfirmPassword" id="ConfirmPassword" name="ConfirmPassword" type="password" required minlength="6" />
+        </div>
+        <button type="submit">Register</button>
+    </form>
+</body>
+</html>
